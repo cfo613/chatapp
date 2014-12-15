@@ -27,7 +27,7 @@ server.on("connection", function(client) {
       var bannedIndex = input.search(b)
       if (bannedIndex !== -1) {
         console.log("client disconnected due to foul language");
-        client.send(JSON.stringify("You cannot use that word. You are being kicked from the chatroom."));
+        client.send(JSON.stringify("You are being kicked from the chatroom due to foul language."));
         var remove = clientlog.indexOf(client);
         clientlog.splice(remove,1);
         client.close();
