@@ -1,0 +1,176 @@
+/*apply to everything*/
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: verdana;
+}
+
+/*apply to body*/
+body {
+  margin: 0 auto;
+  padding: 10px;
+  background: lightgray;
+}
+
+/*apply to user list section*/
+#users {
+  display: inline-block;
+  vertical-align: top;
+  width: 21%;
+  height: 600px;
+  border: 5px solid #E6A0CF;
+  padding: 1.5%;
+  overflow: scroll;
+  background-color: #FFD1F0;
+}
+#welcome {
+  margin-top: 13px;
+  color: #78AFE6;
+}
+#connected {
+  margin-top: 30px;
+}
+
+ul {
+  height: 72%;
+}
+li {
+  font-family: verdana;
+  list-style-type: none;
+  margin-left: -20px;
+  padding-bottom: 7%;
+}
+#usertextbox {
+  width: 60%;
+  height: 7%;
+  text-align: left;
+  font-family: verdana;
+  border: 1px solid darkgray;
+}
+#submitusername {
+  width: 35%;
+  height: 7%;
+  background-color: darkgray;
+}
+
+/*apply to chat window section*/
+#chat {
+  display: inline-block;
+  vertical-align: top;
+  width: 58%;
+  height: 600px;
+  border: 5px solid #78AFE6;
+  background-color: #B6DAFF;
+}
+#header {
+  margin: 2%;
+}
+#peachicon {
+  width: 5%;
+  border-radius: 10px;
+  display: inline-block;
+  vertical-align: top;
+}
+#chatheadline {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: -5%;
+  padding-left: 3%;
+}
+#chatwindow {
+  height: 65%;
+  margin: 3%;
+  padding: 2%;
+  border: 1px solid darkgray;
+  font-family: verdana;
+  overflow: scroll;
+  background-color: white;
+}
+#userinput {
+  margin-left: 3%;
+  margin-right: 3%;
+}
+#textbox {
+  width: 80%;
+  height: 7%;
+  text-align: left;
+  font-family: verdana;
+  border: 1px solid darkgray;
+}
+#submitchat {
+  width: 13%;
+  height: 7%;
+  background-color: darkgray;
+}
+p {
+  border-bottom: 1px solid lightgray;
+  padding: 1%;
+  margin: 0;
+}
+p:nth-child(odd) {
+  background-color: #F0F0F5;
+}
+
+/*apply to tunes section*/
+#tunes {
+  display: inline-block;
+  width: 20%;
+  vertical-align: top;
+  height: 600px;
+  border: 5px solid #A37ACC;
+  background-color: #D6ADFF;
+}
+#logout {
+  display: inline-block;
+  vertical-align: top;
+  float: right;
+  margin-top: -62px;
+  margin-right: 10px;
+  width: 23%;
+  height: 5%;
+  background-color: darkgray;
+}
+#jukebox {
+  margin-left: 5%;
+  margin-top: 35px;
+}
+section {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.jukebutton {
+  display: inline-block;
+  margin-left: 6%;
+  width: 30px;
+  height: 30px;
+  border-top: 1px solid #FFD1F0;
+  background: #E6A0CF;
+  padding: 6px 12px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+  -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+  box-shadow: rgba(0,0,0,1) 0 1px 0;
+  text-shadow: rgba(0,0,0,.4) 0 1px 0;
+  color: white;
+  font-size: 11px;
+  font-family: Georgia, serif;
+  text-decoration: none;
+  vertical-align: middle;
+}
+.jukebutton:hover {
+  border-top-color: #78AFE6;
+  background: #B6DAFF;
+  color: #ccc;
+}
+.jukebutton:active {
+  border-top-color: #1195ed;
+  background: #1195ed;
+}
+.songs {
+  display: inline-block;
+  font-size: .7em;
+  margin: 0 auto;
+}
