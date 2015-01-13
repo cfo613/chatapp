@@ -1,5 +1,5 @@
 //create WebSocket
-var client = new WebSocket("ws://localhost:3000");
+var client = new WebSocket("ws://ciara.princesspeach.nyc");
 
 client.addEventListener("open", function(evt) {
 
