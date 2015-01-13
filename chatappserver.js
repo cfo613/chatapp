@@ -25,6 +25,11 @@ server.on("connection", function(client) {
     client.send(elem);
   })
 
+  //send user list to newly connected clients
+  servermsg.msg = userList;
+  servermsg.type = "userlog";
+  client.send(JSON.stringify(servermsg));
+
   //capture client in clientlog
   clientlog.push(client);
 
@@ -36,14 +41,21 @@ server.on("connection", function(client) {
     if (message.type === "clientmsg") {
       //push messages to message log
       messagelog.push(input);
+      console.log(input);
+
+      //send messages to clients
+      clientlog.forEach(function(elem) {
+        elem.send(input)
+      })
+
       //kick off users that use banned words
       bannedWords.forEach(function(elem) {
         var bannedIndex = input.search(elem)
         if (bannedIndex !== -1) {
           console.log("client disconnected due to foul language");
           //send message to bad user
-          servermsg.msg = "You are being kicked from the chatroom due to foul language."
-          servermsg.type = "servermsg"
+          servermsg.msg = "You are being kicked from the chatroom due to foul language.";
+          servermsg.type = "kicked";
           client.send(JSON.stringify(servermsg));
 
           //remove from user list and send updated list
@@ -57,11 +69,16 @@ server.on("connection", function(client) {
           var removeClient = clientlog.indexOf(client);
           clientlog.splice(removeClient,1);
           client.close();
+
+          //advise other users bad user has been kicked
+          servermsg.msg = message.nm + " has been kicked from the chatroom due to foul language";
+          servermsg.type = "servermsg";
+          var userkick = JSON.stringify(servermsg);
+          messagelog.push(userkick);
+          clientlog.forEach(function(elem) {
+            elem.send(userkick);
+          })
         }
-      })
-      //send messages to clients
-      clientlog.forEach(function(elem) {
-        elem.send(input)
       })
     }
 
@@ -85,7 +102,7 @@ server.on("connection", function(client) {
       var removeUser = userList.indexOf(message.nm);
       userList.splice(removeUser, 1);
       servermsg.msg = userList;
-      servermsg.type = "userlog"
+      servermsg.type = "userlog";
       //send updated user list to client
       clientlog.forEach(function(elem) {
         elem.send(JSON.stringify(servermsg));
@@ -93,6 +110,8 @@ server.on("connection", function(client) {
       //advise clients that user left chatroom
       servermsg.msg = message.nm + " has left the chatroom. Waaahhhhhhh!";
       servermsg.type = "servermsg";
+      var userexit = JSON.stringify(servermsg);
+      messagelog.push(userexit);
       clientlog.forEach(function(elem) {
         elem.send(JSON.stringify(servermsg));
       });
@@ -102,6 +121,8 @@ server.on("connection", function(client) {
     if (message.type === "tunes") {
       servermsg.msg = message.msg;
       servermsg.type = "tunes";
+      servermsg.special = message.special;
+      console.log(servermsg);
       clientlog.forEach(function(elem) {
         elem.send(JSON.stringify(servermsg));
       });
@@ -115,7 +136,8 @@ server.on("connection", function(client) {
     //remove from client log
     clientlog.forEach(function(elem){
       if (elem === client) {
-        var removeClient = clientlog.indexOf(elem);
+        var removeClient = clientlog.indexOf(client);
+        console.log(removeClient);
         clientlog.splice(removeClient,1);
         elem.close();
       }

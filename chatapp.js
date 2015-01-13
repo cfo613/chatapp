@@ -85,7 +85,6 @@ client.addEventListener("open", function(evt) {
     var newMessage = document.createElement("p");
     var serverMsg = JSON.parse(evt.data);
 
-    console.log(serverMsg);
     //messages from server (just text)
     if (serverMsg.type === "servermsg") {
       newMessage.innerHTML = serverMsg.msg;
@@ -108,10 +107,17 @@ client.addEventListener("open", function(evt) {
       })
     }
 
+    //messages from server (bad user)
+    if (serverMsg.type === "kicked") {
+      var chatroom = document.querySelector("#chatroom");
+      body.removeChild(chatroom);
+      var kickout = document.createElement("p");
+      kickout.innerHTML = 'Princess Peach says: "' + serverMsg.msg + '"';
+      body.appendChild(kickout);
+    }
+
     //messages from users (sent via server)
     if (serverMsg.type === "clientmsg") {
-
-      //DISPLAY MESSAGES...
 
         //search for special features and set special value....
         specialFeatures.forEach(function(elem) {
@@ -156,97 +162,210 @@ client.addEventListener("open", function(evt) {
         }
     }
 
+    //songs
+    var song1 = new Audio("https://www.freesound.org/data/previews/145/145596_2583849-lq.mp3");
+    var song2 = new Audio("https://www.freesound.org/data/previews/154/154492_2337290-lq.mp3");
+    var song3 = new Audio("https://www.freesound.org/data/previews/170/170986_35187-lq.mp3");
+    var song4 = new Audio("https://www.freesound.org/data/previews/32/32090_114160-lq.mp3");
+    var song5 = new Audio("https://www.freesound.org/data/previews/51/51242_179538-lq.mp3");
+    var song6 = new Audio("https://www.freesound.org/data/previews/104/104718_7037-lq.mp3");
+    var song7 = new Audio("https://www.freesound.org/data/previews/137/137227_1735491-lq.mp3");
+    var song8 = new Audio("https://www.freesound.org/data/previews/126/126421_1666767-lq.mp3");
+
+
+    //play or stop songs
     if (serverMsg.type === "tunes") {
       if (serverMsg.msg === "song1") {
-        var song1 = new Audio("https://www.freesound.org/data/previews/145/145596_2583849-lq.mp3");
-        song1.play();
+        if (serverMsg.special === "stop") {
+          pause();
+        }
+        if (serverMsg.special === "play") {
+          song1.play();
+        }
       }
       if (serverMsg.msg === "song2") {
-        var song2 = new Audio("https://www.freesound.org/data/previews/154/154492_2337290-lq.mp3");
-        song2.play();
+        if (serverMsg.special === "stop") {
+          pause();
+        }
+        if (serverMsg.special === "play") {
+          song2.play();
+        }
       }
       if (serverMsg.msg === "song3") {
-        var song3 = new Audio("https://www.freesound.org/data/previews/170/170986_35187-lq.mp3");
-        song3.play();
+        if (serverMsg.special === "stop") {
+          pause();
+        }
+        if (serverMsg.special === "play") {
+          song3.play();
+        }
       }
       if (serverMsg.msg === "song4") {
-        var song4 = new Audio("https://www.freesound.org/data/previews/32/32090_114160-lq.mp3");
-        song4.play();
+        if (serverMsg.special === "stop") {
+          pause();
+        }
+        if (serverMsg.special === "play") {
+          song4.play();
+        }
       }
       if (serverMsg.msg === "song5") {
-        var song5 = new Audio("https://www.freesound.org/data/previews/51/51242_179538-lq.mp3");
-        song5.play();
+        if (serverMsg.special === "stop") {
+          pause();
+        }
+        if (serverMsg.special === "play") {
+          song5.play();
+        }
       }
       if (serverMsg.msg === "song6") {
-        var song6 = new Audio("https://www.freesound.org/data/previews/104/104718_7037-lq.mp3");
-        song6.play();
+        if (serverMsg.special === "stop") {
+          pause();
+        }
+        if (serverMsg.special === "play") {
+          song6.play();
+        }
       }
       if (serverMsg.msg === "song7") {
-        var song7 = new Audio("https://www.freesound.org/data/previews/137/137227_1735491-lq.mp3");
-        song7.play();
+        if (serverMsg.special === "stop") {
+          pause();
+        }
+        if (serverMsg.special === "play") {
+          song7.play();
+        }
       }
       if (serverMsg.msg === "song8") {
-        var song8 = new Audio("https://www.freesound.org/data/previews/126/126421_1666767-lq.mp3");
-        song8.play();
+        if (serverMsg.special === "stop") {
+          pause();
+        }
+        if (serverMsg.special === "play") {
+          song8.play();
+        }
       }
     }
 
   });
 
-  var sendSong = function(song) {
+  //send message to play song to server
+  var sendPlay = function(song) {
     user.type = "tunes";
     user.msg = song;
-    console.log(user);
+    user.special = "play";
+    client.send(JSON.stringify(user));
+  }
+
+  //send message to stop song to server
+  var sendStop = function(song) {
+    user.type = "tunes";
+    user.msg = song;
+    user.special = "stop";
     client.send(JSON.stringify(user));
   }
 
   //listen for jukebox button click -- song 1
+  var counter1 = 0;
   song1.addEventListener("click", function(evt) {
-    sendSong("song1");
+
+    counter1 ++
+    if (counter1 % 2 === 0) {
+      sendStop("song1");
+    }
+    else {
+      sendPlay("song1");
+    }
   })
 
   //listen for jukebox button click -- song 2
+  var counter2 = 0;
   song2.addEventListener("click", function(evt) {
-    sendSong("song2");
+    counter2 ++
+    if (counter2 % 2 === 0) {
+      sendStop("song2");
+    }
+    else {
+      sendPlay("song2");
+    }
   })
 
   //listen for jukebox button click -- song 3
+  var counter3 = 0;
   song3.addEventListener("click", function(evt) {
-    sendSong("song3");
+    counter3 ++
+    if (counter3 % 2 === 0) {
+      sendStop("song3");
+    }
+    else {
+      sendPlay("song3");
+    }
   })
 
   //listen for jukebox button click -- song 4
+  var counter4 = 0;
   song4.addEventListener("click", function(evt) {
-    sendSong("song4");
+    counter4 ++
+    if (counter4 % 2 === 0) {
+      sendStop("song4");
+    }
+    else {
+      sendPlay("song4");
+    }
   })
 
   //listen for jukebox button click -- song 5
+  var counter5 = 0;
   song5.addEventListener("click", function(evt) {
-    sendSong("song5");
+    counter5 ++
+    if (counter5 % 2 === 0) {
+      sendStop("song5");
+    }
+    else {
+      sendPlay("song5");
+    }
   })
 
   //listen for jukebox button click -- song 6
+  var counter6 = 0;
   song6.addEventListener("click", function(evt) {
-    sendSong("song6");
+    counter6 ++
+    if (counter6 % 2 === 0) {
+      sendStop("song6");
+    }
+    else {
+      sendPlay("song6");
+    }
   })
 
   //listen for jukebox button click -- song 7
+  var counter7 = 0;
   song7.addEventListener("click", function(evt) {
-    sendSong("song7");
+    counter7 ++
+    if (counter7 % 2 === 0) {
+      sendStop("song7");
+    }
+    else {
+      sendPlay("song7");
+    }
   })
 
   //listen for jukebox button click -- song 8
+  var counter8 = 0;
   song8.addEventListener("click", function(evt) {
-    sendSong("song8");
+    counter8 ++
+    if (counter8 % 2 === 0) {
+      sendStop("song8");
+    }
+    else {
+      sendPlay("song8");
+    }
   })
-
 
   //listen for logout and send user info to server to remove from list
   logout.addEventListener("click", function() {
     user.type = "exit";
     console.log(user);
     client.send(JSON.stringify(user));
-    close();
+    var chatroom = document.querySelector("#chatroom");
+    body.removeChild(chatroom);
+    var logout = document.createElement("p");
+    logout.innerHTML = 'Princess Peach says, "Peace!"';
+    body.appendChild(logout);
   })
 
 
