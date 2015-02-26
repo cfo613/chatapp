@@ -1,5 +1,5 @@
 //create WebSocket
-var client = new WebSocket("ws://ciara.princesspeach.nyc");
+var client = new WebSocket("ws://localhost:3000");
 
 client.addEventListener("open", function(evt) {
 
@@ -66,7 +66,8 @@ client.addEventListener("open", function(evt) {
     }
     else {
       user.msg = userInput.value;
-      user.type = "clientmsg"
+      user.type = "clientmsg";
+      user.special = "";
       client.send(JSON.stringify(user));
       userInput.value = "";
     }
