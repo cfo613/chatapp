@@ -2,11 +2,11 @@
 
 ## About
 
-This chat app was created using vanilla JavaScript, node.js, and WebSockets - specifically ws (a node.js websocket implementation).
+This chat app was created using vanilla JavaScript, node.js, and WebSockets.
 
 Our class name happened to be 'Princess Peach' - hence the inspiration for the application.
 
-We had not yet learned databases, so the information is not persisted in a database; however, the client log and message history is stored in an array during the session.
+Note: we had not yet learned databases, so the information is not persisted in a database; however, the client log and message history is stored in an array during the session.
 
 ### Features
 
